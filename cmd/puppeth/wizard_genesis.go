@@ -152,7 +152,7 @@ func (w *wizard) makeGenesis() {
 			}
 		}
 		validatorCap := new(big.Int)
-		validatorCap.SetString("50000000000000000000000", 10)
+		validatorCap.SetString("10000000000000000000000", 10)
 		var validatorCaps []*big.Int
 		genesis.ExtraData = make([]byte, 32+len(signers)*common.AddressLength+65)
 		for i, signer := range signers {
@@ -232,7 +232,7 @@ func (w *wizard) makeGenesis() {
 		storage = make(map[common.Hash]common.Hash)
 		contractBackend.ForEachStorageAt(ctx, multiSignWalletAddr, nil, f)
 		fBalance := big.NewInt(0) // 16m
-		fBalance.Add(fBalance, big.NewInt(16*1000*1000))
+		fBalance.Add(fBalance, big.NewInt(2*1000*1000))
 		fBalance.Mul(fBalance, big.NewInt(1000000000000000000))
 		genesis.Alloc[common.HexToAddress(common.FoudationAddr)] = core.GenesisAccount{
 			Balance: fBalance,
@@ -299,7 +299,7 @@ func (w *wizard) makeGenesis() {
 		contractBackend.ForEachStorageAt(ctx, multiSignWalletTeamAddr, nil, f)
 		// Team balance.
 		balance := big.NewInt(0) // 12m
-		balance.Add(balance, big.NewInt(12*1000*1000))
+		balance.Add(balance, big.NewInt(2*1000*1000))
 		balance.Mul(balance, big.NewInt(1000000000000000000))
 		subBalance := big.NewInt(0) // i * 50k
 		subBalance.Add(subBalance, big.NewInt(int64(len(signers))*50*1000))
@@ -315,7 +315,7 @@ func (w *wizard) makeGenesis() {
 		fmt.Println("What is swap wallet address for fund 55m sdx?")
 		swapAddr := *w.readAddress()
 		baseBalance := big.NewInt(0) // 55m
-		baseBalance.Add(baseBalance, big.NewInt(55*1000*1000))
+		baseBalance.Add(baseBalance, big.NewInt(200*1000*1000))
 		baseBalance.Mul(baseBalance, big.NewInt(1000000000000000000))
 		genesis.Alloc[swapAddr] = core.GenesisAccount{
 			Balance: baseBalance,
